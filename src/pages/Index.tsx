@@ -73,7 +73,7 @@ const Index = () => {
           {/* Title row */}
           <div className="flex items-center justify-between px-4 pt-4 pb-2">
             <div className="flex items-center gap-2">
-              <img src="/favicon_192.png" alt="AI精選寶箱" className="w-8 h-8 rounded-md" />
+              <img src={`${import.meta.env.BASE_URL}favicon_192.png`} alt="AI精選寶箱" className="w-8 h-8 rounded-md" />
               <span className="text-xl font-bold text-foreground">AI精選寶箱</span>
             </div>
             <SettingsPanel viewMode={viewMode} onViewModeChange={setViewMode} />

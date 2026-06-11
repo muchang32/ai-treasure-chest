@@ -27,7 +27,7 @@ export const CategorySidebar = ({
       <div className="flex items-start justify-between mb-8">
         <div>
           <h1 className="text-2xl font-bold text-foreground flex items-center gap-2">
-            <img src="/favicon_192.png" alt="AI精選寶箱" className="w-7 h-7 rounded-md" />
+            <img src={`${import.meta.env.BASE_URL}favicon_192.png`} alt="AI精選寶箱" className="w-7 h-7 rounded-md" />
             AI精選寶箱
           </h1>
           <p className="text-sm text-muted-foreground mt-1">精選 AI 工具目錄</p>
