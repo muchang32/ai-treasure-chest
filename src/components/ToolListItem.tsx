@@ -61,30 +61,12 @@ export const ToolListItem = ({ tool, index, onDetail }: ToolListItemProps) => {
         </div>
 
         {/* Inline expandable steps (when no modal handler) */}
-        {expanded && !onDetail && tool.操作步驟 && (
+        {expanded && !onDetail && tool.操作說明 && (
           <div className="mt-4 pt-4 border-t border-border/50">
-            <div className="text-[10px] tracking-widest text-muted-foreground mb-3">操作步驟</div>
-            <div className="flex flex-col gap-3 mb-4">
-              {tool.操作步驟.map((st, i) => (
-                <div key={i} className="flex gap-3">
-                  <div className="font-serif text-lg font-bold text-[#B8321A] leading-tight w-5 flex-shrink-0">
-                    {i + 1}
-                  </div>
-                  <div>
-                    <div className="text-sm font-bold text-foreground mb-0.5">{st.title}</div>
-                    <div className="text-xs leading-relaxed text-foreground/70">{st.desc}</div>
-                  </div>
-                </div>
-              ))}
-            </div>
-            {tool.使用限制 && tool.使用限制.length > 0 && (
-              <div className="border-t border-border/50 pt-3 mb-4">
-                <div className="text-[10px] tracking-widest text-[#B8321A] mb-2">使用限制</div>
-                {tool.使用限制.map((l, i) => (
-                  <div key={i} className="text-xs leading-relaxed text-foreground/60">— {l}</div>
-                ))}
-              </div>
-            )}
+            <div className="text-[10px] tracking-widest text-muted-foreground mb-2">操作說明</div>
+            <p className="text-xs leading-relaxed text-foreground/70 mb-4 whitespace-pre-line">
+              {tool.操作說明}
+            </p>
             {tool.工具網址 && tool.工具網址 !== "#" && (
               <a
                 href={tool.工具網址}

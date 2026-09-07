@@ -49,56 +49,14 @@ export const ToolDetailModal = ({ tool, onClose }: ToolDetailModalProps) => {
             {tool.功能簡介}
           </p>
 
-          <div className="grid grid-cols-[100px_1fr] md:grid-cols-[120px_1fr] gap-x-5 md:gap-x-6">
-
-            {/* 適用情境 */}
-            {tool.適用情境 && tool.適用情境.length > 0 && (
-              <>
-                <div className="text-[10px] tracking-[0.2em] text-muted-foreground pt-5">適用情境</div>
-                <div className="flex flex-col gap-2 py-5 border-b border-border">
-                  {tool.適用情境.map((s, i) => (
-                    <div key={i} className="text-sm leading-relaxed text-foreground/90">— {s}</div>
-                  ))}
-                </div>
-              </>
-            )}
-
-            {/* 操作步驟 */}
-            {tool.操作步驟 && tool.操作步驟.length > 0 && (
-              <>
-                <div className="text-[10px] tracking-[0.2em] text-muted-foreground pt-5 border-t border-border">
-                  操作步驟
-                </div>
-                <div className="flex flex-col gap-5 py-5 border-b border-border border-t">
-                  {tool.操作步驟.map((st, i) => (
-                    <div key={i} className="flex gap-4">
-                      <div className="font-serif text-2xl font-bold text-[#B8321A] leading-none w-7 flex-shrink-0">
-                        {i + 1}
-                      </div>
-                      <div>
-                        <div className="text-sm font-bold text-foreground mb-1">{st.title}</div>
-                        <div className="text-sm leading-relaxed text-foreground/70">{st.desc}</div>
-                      </div>
-                    </div>
-                  ))}
-                </div>
-              </>
-            )}
-
-            {/* 使用限制 */}
-            {tool.使用限制 && tool.使用限制.length > 0 && (
-              <>
-                <div className="text-[10px] tracking-[0.2em] text-[#B8321A] pt-5 border-t border-border">
-                  使用限制
-                </div>
-                <div className="flex flex-col gap-2 py-5 border-b border-border border-t">
-                  {tool.使用限制.map((l, i) => (
-                    <div key={i} className="text-sm leading-relaxed text-foreground/70">— {l}</div>
-                  ))}
-                </div>
-              </>
-            )}
-          </div>
+          {tool.操作說明 && (
+            <div className="grid grid-cols-[100px_1fr] md:grid-cols-[120px_1fr] gap-x-5 md:gap-x-6">
+              <div className="text-[10px] tracking-[0.2em] text-muted-foreground pt-5">操作說明</div>
+              <p className="text-sm leading-relaxed text-foreground/80 py-5 border-b border-border whitespace-pre-line">
+                {tool.操作說明}
+              </p>
+            </div>
+          )}
 
           {/* CTA */}
           {tool.工具網址 && tool.工具網址 !== "#" ? (
