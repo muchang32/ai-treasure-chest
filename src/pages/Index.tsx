@@ -246,7 +246,7 @@ const Index = () => {
                     {viewMode === "grid" ? (
                       <div className="grid grid-cols-3 gap-x-7 gap-y-10">
                         {filteredExternal.map((tool, i) => (
-                          <ToolCard key={`${tool.工具名稱}-${i}`} tool={tool} index={i} />
+                          <ToolCard key={`${tool.工具名稱}-${i}`} tool={tool} />
                         ))}
                       </div>
                     ) : (
