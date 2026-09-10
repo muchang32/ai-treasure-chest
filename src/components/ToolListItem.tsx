@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { ChevronDown, ChevronUp } from "lucide-react";
+import { ChevronDown, ChevronUp, ArrowRight } from "lucide-react";
 import { AITool } from "@/hooks/useGoogleSheets";
 import { getCategoryConfig } from "@/lib/categoryConfig";
 
@@ -110,9 +110,9 @@ export const ToolListItem = ({ tool, index, onDetail }: ToolListItemProps) => {
     );
   }
 
-  // External tool — horizontal layout: logo left, text right
+  // External tool — horizontal layout: logo left, text center, link right
   return (
-    <div className="border-b border-border py-4 flex gap-4 items-start">
+    <div className="border-b border-border py-4 flex gap-4 items-center">
       {/* Logo */}
       <a
         href={tool.工具網址}
@@ -143,31 +143,32 @@ export const ToolListItem = ({ tool, index, onDetail }: ToolListItemProps) => {
 
       {/* Text */}
       <div className="flex-1 min-w-0">
-        <div className="flex items-center justify-between gap-3 mb-1">
-          <div className="flex items-baseline gap-2 min-w-0">
-            <a
-              href={tool.工具網址}
-              target="_blank"
-              rel="noopener noreferrer"
-              className="font-serif text-base font-bold text-foreground hover:opacity-70 transition-opacity truncate"
-            >
-              {tool.工具名稱}
-            </a>
-            {primaryCategory && (
-              <span className="text-xs text-muted-foreground whitespace-nowrap flex-shrink-0">{primaryCategory}</span>
-            )}
-          </div>
+        <div className="flex items-baseline gap-2 mb-1">
           <a
             href={tool.工具網址}
             target="_blank"
             rel="noopener noreferrer"
-            className="flex-shrink-0 text-xs font-bold text-foreground border border-foreground px-2.5 py-1 hover:bg-foreground hover:text-background transition-colors"
+            className="font-serif text-base font-bold text-foreground hover:opacity-70 transition-opacity"
           >
-            前往網站
+            {tool.工具名稱}
           </a>
+          {primaryCategory && (
+            <span className="text-xs text-muted-foreground whitespace-nowrap">{primaryCategory}</span>
+          )}
         </div>
         <p className="text-sm leading-relaxed text-foreground/70 line-clamp-2">{tool.功能簡介}</p>
       </div>
+
+      {/* Link */}
+      <a
+        href={tool.工具網址}
+        target="_blank"
+        rel="noopener noreferrer"
+        className="flex-shrink-0 inline-flex items-center gap-1 text-sm font-bold text-foreground hover:opacity-60 transition-opacity"
+      >
+        前往網站
+        <ArrowRight className="w-3.5 h-3.5" />
+      </a>
     </div>
   );
 };
