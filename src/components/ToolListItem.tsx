@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { ExternalLink, ChevronDown, ChevronUp } from "lucide-react";
+import { ChevronDown, ChevronUp } from "lucide-react";
 import { AITool } from "@/hooks/useGoogleSheets";
 import { getCategoryConfig } from "@/lib/categoryConfig";
 
@@ -9,16 +9,44 @@ interface ToolListItemProps {
   onDetail?: (tool: AITool) => void;
 }
 
-const getMicrolinkScreenshotUrl = (url: string) =>
-  `https://api.microlink.io/?url=${encodeURIComponent(url)}&screenshot=true&meta=false&embed=screenshot.url`;
+const getLogoUrl = (url: string) => {
+  try {
+    const domain = new URL(url).hostname;
+    return `https://logo.clearbit.com/${domain}`;
+  } catch {
+    return null;
+  }
+};
+
+const getFaviconUrl = (url: string) => {
+  try {
+    const domain = new URL(url).hostname;
+    return `https://www.google.com/s2/favicons?domain=${domain}&sz=64`;
+  } catch {
+    return null;
+  }
+};
 
 export const ToolListItem = ({ tool, index, onDetail }: ToolListItemProps) => {
-  const [imgError, setImgError] = useState(false);
+  const [logoError, setLogoError] = useState(false);
+  const [faviconError, setFaviconError] = useState(false);
   const [expanded, setExpanded] = useState(false);
   const primaryCategory = tool.工具分類[0] || "";
   const categoryConfig = getCategoryConfig(primaryCategory);
   const CategoryIcon = categoryConfig.icon;
   const isInternal = tool.來源 === "內部";
+
+  const logoUrl = tool.工具網址 ? getLogoUrl(tool.工具網址) : null;
+  const faviconUrl = tool.工具網址 ? getFaviconUrl(tool.工具網址) : null;
+
+  const LogoFallback = () => (
+    <div
+      className="w-full h-full flex items-center justify-center"
+      style={{ backgroundColor: categoryConfig.bgColor }}
+    >
+      <CategoryIcon className="w-5 h-5" style={{ color: categoryConfig.color }} />
+    </div>
+  );
 
   if (isInternal) {
     return (
@@ -60,7 +88,6 @@ export const ToolListItem = ({ tool, index, onDetail }: ToolListItemProps) => {
           <span className="ml-auto text-xs text-muted-foreground">{primaryCategory}</span>
         </div>
 
-        {/* Inline expandable steps (when no modal handler) */}
         {expanded && !onDetail && tool.操作說明 && (
           <div className="mt-4 pt-4 border-t border-border/50">
             <div className="text-[10px] tracking-widest text-muted-foreground mb-2">操作說明</div>
@@ -83,47 +110,54 @@ export const ToolListItem = ({ tool, index, onDetail }: ToolListItemProps) => {
     );
   }
 
-  // External tool
+  // External tool — horizontal layout: logo left, text right
   return (
-    <div className="border-b border-border py-4">
+    <div className="border-b border-border py-4 flex gap-4 items-start">
+      {/* Logo */}
       <a
         href={tool.工具網址}
         target="_blank"
         rel="noopener noreferrer"
-        className="block relative w-full h-36 border border-border overflow-hidden bg-muted mb-3 flex-shrink-0 group"
+        className="flex-shrink-0 w-14 h-14 border border-border overflow-hidden bg-muted flex items-center justify-center group"
         aria-label={`前往 ${tool.工具名稱} 網站`}
+        tabIndex={-1}
       >
-        {tool.工具網址 && !imgError ? (
+        {logoUrl && !logoError ? (
           <img
-            src={getMicrolinkScreenshotUrl(tool.工具網址)}
-            alt={`${tool.工具名稱} 網站截圖`}
-            className="w-full h-full object-cover object-top transition-opacity group-hover:opacity-85"
-            onError={() => setImgError(true)}
+            src={logoUrl}
+            alt={`${tool.工具名稱} logo`}
+            className="w-10 h-10 object-contain transition-opacity group-hover:opacity-75"
+            onError={() => setLogoError(true)}
+          />
+        ) : faviconUrl && !faviconError ? (
+          <img
+            src={faviconUrl}
+            alt={`${tool.工具名稱} favicon`}
+            className="w-8 h-8 object-contain transition-opacity group-hover:opacity-75"
+            onError={() => setFaviconError(true)}
           />
         ) : (
-          <div
-            className="w-full h-full flex items-center justify-center"
-            style={{ backgroundColor: categoryConfig.bgColor }}
-          >
-            <CategoryIcon className="w-8 h-8" style={{ color: categoryConfig.color }} />
-          </div>
+          <LogoFallback />
         )}
       </a>
 
-      <div className="flex items-baseline justify-between gap-2 border-b border-border pb-2 mb-2">
-        <a
-          href={tool.工具網址}
-          target="_blank"
-          rel="noopener noreferrer"
-          className="font-serif text-lg font-bold text-foreground hover:opacity-70 transition-opacity"
-        >
-          {tool.工具名稱}
-        </a>
-        {primaryCategory && (
-          <span className="text-xs text-muted-foreground whitespace-nowrap">{primaryCategory}</span>
-        )}
+      {/* Text */}
+      <div className="flex-1 min-w-0">
+        <div className="flex items-baseline justify-between gap-2 mb-1">
+          <a
+            href={tool.工具網址}
+            target="_blank"
+            rel="noopener noreferrer"
+            className="font-serif text-base font-bold text-foreground hover:opacity-70 transition-opacity truncate"
+          >
+            {tool.工具名稱}
+          </a>
+          {primaryCategory && (
+            <span className="text-xs text-muted-foreground whitespace-nowrap flex-shrink-0">{primaryCategory}</span>
+          )}
+        </div>
+        <p className="text-sm leading-relaxed text-foreground/70 line-clamp-2">{tool.功能簡介}</p>
       </div>
-      <p className="text-sm leading-relaxed text-foreground/70 mb-3">{tool.功能簡介}</p>
     </div>
   );
 };
