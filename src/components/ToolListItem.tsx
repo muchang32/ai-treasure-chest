@@ -143,18 +143,28 @@ export const ToolListItem = ({ tool, index, onDetail }: ToolListItemProps) => {
 
       {/* Text */}
       <div className="flex-1 min-w-0">
-        <div className="flex items-baseline justify-between gap-2 mb-1">
+        <div className="flex items-center justify-between gap-3 mb-1">
+          <div className="flex items-baseline gap-2 min-w-0">
+            <a
+              href={tool.工具網址}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="font-serif text-base font-bold text-foreground hover:opacity-70 transition-opacity truncate"
+            >
+              {tool.工具名稱}
+            </a>
+            {primaryCategory && (
+              <span className="text-xs text-muted-foreground whitespace-nowrap flex-shrink-0">{primaryCategory}</span>
+            )}
+          </div>
           <a
             href={tool.工具網址}
             target="_blank"
             rel="noopener noreferrer"
-            className="font-serif text-base font-bold text-foreground hover:opacity-70 transition-opacity truncate"
+            className="flex-shrink-0 text-xs font-bold text-foreground border border-foreground px-2.5 py-1 hover:bg-foreground hover:text-background transition-colors"
           >
-            {tool.工具名稱}
+            前往網站
           </a>
-          {primaryCategory && (
-            <span className="text-xs text-muted-foreground whitespace-nowrap flex-shrink-0">{primaryCategory}</span>
-          )}
         </div>
         <p className="text-sm leading-relaxed text-foreground/70 line-clamp-2">{tool.功能簡介}</p>
       </div>
