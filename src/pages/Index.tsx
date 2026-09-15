@@ -204,29 +204,29 @@ const Index = () => {
                     </span>
                   </div>
 
-                  {/* Desktop: 2-col text grid */}
-                  <div className="hidden md:grid grid-cols-2">
-                    {filteredInternal.map((tool, i) => (
-                      <InternalToolCard
-                        key={tool.工具名稱}
-                        tool={tool}
-                        index={i}
-                        onDetail={setSelectedTool}
-                      />
-                    ))}
-                  </div>
-
-                  {/* Mobile: expandable list */}
-                  <div className="md:hidden">
-                    {filteredInternal.map((tool, i) => (
-                      <ToolListItem
-                        key={tool.工具名稱}
-                        tool={tool}
-                        index={i}
-                        onDetail={setSelectedTool}
-                      />
-                    ))}
-                  </div>
+                  {viewMode === "grid" ? (
+                    <div className="grid grid-cols-1 md:grid-cols-2">
+                      {filteredInternal.map((tool, i) => (
+                        <InternalToolCard
+                          key={tool.工具名稱}
+                          tool={tool}
+                          index={i}
+                          onDetail={setSelectedTool}
+                        />
+                      ))}
+                    </div>
+                  ) : (
+                    <div className="flex flex-col">
+                      {filteredInternal.map((tool, i) => (
+                        <ToolListItem
+                          key={tool.工具名稱}
+                          tool={tool}
+                          index={i}
+                          onDetail={setSelectedTool}
+                        />
+                      ))}
+                    </div>
+                  )}
                 </section>
               )}
 
