@@ -16,7 +16,7 @@ export const InternalToolCard = ({ tool, index, onDetail }: InternalToolCardProp
         <span className="font-serif text-sm text-muted-foreground/50">
           {String(index + 1).padStart(2, "0")}
         </span>
-        <h3 className="font-serif text-2xl font-bold text-foreground leading-tight">
+        <h3 className="font-serif text-xl font-bold text-foreground leading-tight">
           {tool.工具名稱}
         </h3>
         <span className="text-[10px] tracking-widest border border-[#B8321A] text-[#B8321A] px-2 py-0.5 flex-shrink-0">

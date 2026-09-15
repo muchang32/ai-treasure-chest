@@ -43,7 +43,7 @@ export const ToolListItem = ({ tool, index, onDetail }: ToolListItemProps) => {
           <span className="font-serif text-xs text-muted-foreground/50">
             {String(index + 1).padStart(2, "0")}
           </span>
-          <h3 className="font-serif text-lg font-bold text-foreground">
+          <h3 className="font-serif text-base font-bold text-foreground">
             {tool.工具名稱}
           </h3>
           <span className="text-[9px] tracking-wider border border-[#B8321A] text-[#B8321A] px-1.5 py-0.5 flex-shrink-0">
