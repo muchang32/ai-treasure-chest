@@ -6,7 +6,12 @@ interface AccessConfig {
 
 // 公司對外的固定 IP。從這些 IP 連進來才看得到內部工具。
 const INTERNAL_PUBLIC_IPS: string[] = [
+  "60.250.135.18",
+  "60.250.134.87",
   "60.250.133.153",
+  "60.248.31.111",
+  "203.69.6.99",
+  "211.72.195.139",
 ];
 
 export const useAccessConfig = () => {
