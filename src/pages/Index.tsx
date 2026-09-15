@@ -163,7 +163,7 @@ const Index = () => {
         ══════════════════════════════════ */}
         <div className="hidden md:flex items-end justify-between border-b-2 border-foreground px-11 pt-6 pb-5 gap-4">
           <p className="text-[10px] tracking-[0.2em] text-muted-foreground uppercase">
-            {isLoading ? "載入中…" : "內部工具目錄 · 2026"}
+            {isLoading && "載入中…"}
           </p>
           <div className="flex items-end gap-6">
             <SearchBar value={searchQuery} onChange={setSearchQuery} placeholder="搜尋" />

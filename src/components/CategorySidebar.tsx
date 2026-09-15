@@ -49,9 +49,6 @@ export const CategorySidebar = ({
             />
             AI精選寶箱
           </h1>
-          <p className="text-[10px] tracking-[0.2em] text-muted-foreground mt-1.5 uppercase">
-            內部工具目錄 · 2026
-          </p>
         </div>
 
         {/* Source filter — hidden in external-only mode */}
