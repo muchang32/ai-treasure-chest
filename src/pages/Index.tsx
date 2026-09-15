@@ -241,29 +241,19 @@ const Index = () => {
                     <span className="ml-auto text-xs text-muted-foreground">共 {filteredExternal.length} 個</span>
                   </div>
 
-                  {/* Desktop: grid or list */}
-                  <div className="hidden md:block">
-                    {viewMode === "grid" ? (
-                      <div className="grid grid-cols-3 gap-x-7 gap-y-10">
-                        {filteredExternal.map((tool, i) => (
-                          <ToolCard key={`${tool.工具名稱}-${i}`} tool={tool} />
-                        ))}
-                      </div>
-                    ) : (
-                      <div className="flex flex-col">
-                        {filteredExternal.map((tool, i) => (
-                          <ToolListItem key={`${tool.工具名稱}-${i}`} tool={tool} index={i} />
-                        ))}
-                      </div>
-                    )}
-                  </div>
-
-                  {/* Mobile: list */}
-                  <div className="md:hidden">
-                    {filteredExternal.map((tool, i) => (
-                      <ToolListItem key={`${tool.工具名稱}-${i}`} tool={tool} index={i} />
-                    ))}
-                  </div>
+                  {viewMode === "grid" ? (
+                    <div className="grid grid-cols-2 md:grid-cols-3 gap-x-4 md:gap-x-7 gap-y-8 md:gap-y-10">
+                      {filteredExternal.map((tool, i) => (
+                        <ToolCard key={`${tool.工具名稱}-${i}`} tool={tool} />
+                      ))}
+                    </div>
+                  ) : (
+                    <div className="flex flex-col">
+                      {filteredExternal.map((tool, i) => (
+                        <ToolListItem key={`${tool.工具名稱}-${i}`} tool={tool} index={i} />
+                      ))}
+                    </div>
+                  )}
                 </section>
               )}
 

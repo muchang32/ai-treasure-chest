@@ -9,26 +9,15 @@ interface ToolListItemProps {
   onDetail?: (tool: AITool) => void;
 }
 
-const getLogoUrl = (url: string) => {
-  try {
-    const domain = new URL(url).hostname;
-    return `https://logo.clearbit.com/${domain}`;
-  } catch {
-    return null;
-  }
-};
-
 const getFaviconUrl = (url: string) => {
   try {
-    const domain = new URL(url).hostname;
-    return `https://www.google.com/s2/favicons?domain=${domain}&sz=64`;
+    return `https://www.google.com/s2/favicons?domain=${new URL(url).hostname}&sz=128`;
   } catch {
     return null;
   }
 };
 
 export const ToolListItem = ({ tool, index, onDetail }: ToolListItemProps) => {
-  const [logoError, setLogoError] = useState(false);
   const [faviconError, setFaviconError] = useState(false);
   const [expanded, setExpanded] = useState(false);
   const primaryCategory = tool.工具分類[0] || "";
@@ -36,7 +25,6 @@ export const ToolListItem = ({ tool, index, onDetail }: ToolListItemProps) => {
   const CategoryIcon = categoryConfig.icon;
   const isInternal = tool.來源 === "內部";
 
-  const logoUrl = tool.工具網址 ? getLogoUrl(tool.工具網址) : null;
   const faviconUrl = tool.工具網址 ? getFaviconUrl(tool.工具網址) : null;
 
   const LogoFallback = () => (
@@ -122,18 +110,11 @@ export const ToolListItem = ({ tool, index, onDetail }: ToolListItemProps) => {
         aria-label={`前往 ${tool.工具名稱} 網站`}
         tabIndex={-1}
       >
-        {logoUrl && !logoError ? (
-          <img
-            src={logoUrl}
-            alt={`${tool.工具名稱} logo`}
-            className="w-10 h-10 object-contain transition-opacity group-hover:opacity-75"
-            onError={() => setLogoError(true)}
-          />
-        ) : faviconUrl && !faviconError ? (
+        {faviconUrl && !faviconError ? (
           <img
             src={faviconUrl}
-            alt={`${tool.工具名稱} favicon`}
-            className="w-8 h-8 object-contain transition-opacity group-hover:opacity-75"
+            alt={`${tool.工具名稱} logo`}
+            className="w-9 h-9 object-contain transition-opacity group-hover:opacity-75"
             onError={() => setFaviconError(true)}
           />
         ) : (
